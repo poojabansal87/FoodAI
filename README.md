@@ -18,6 +18,6 @@ Currently, our model is only built with 101 different types of dishes. With 'Rem
 ## Limitations 
 
 ## Authors
-[Pooja Bansal](https://github.com/poojabansal87)
-[Chol Gurung](https://github.com/CholGurung)
-[Htet Yi Linn](https://github.com/hlinn1)
++ [Pooja Bansal](https://github.com/poojabansal87)
++ [Chol Gurung](https://github.com/CholGurung)
++ [Htet Yi Linn](https://github.com/hlinn1)
