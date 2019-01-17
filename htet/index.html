@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food Allergen Inspector</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+
+<body>  
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">FoodAI</a>
+      </div>      
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">          
+        <ul class="nav navbar-nav navbar-right">            
+            <li><a href="/inspector">Inspector</a></li>
+            <li><a href="/news">News</a></li>
+            <li><a href="/remodel">Remodel</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <div class="hero text-center">
+    <h1>Food Allergen Inspector</h1>
+    <!-- <p></p> -->
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="chart-container">
+          <div class="row">
+            <h1>Project</h1>
+            <hr class="line-separator">
+
+            <p>
+              Eating out is not as easy for our friends with food allergies. They have to be very careful about what is in the dishes they are consuming. 
+              Unfortunately, it is not as easy to tell what ingredients are inside a dish, especially specialty dishes or ethnic cuisines.
+            </p>
+          </div>
+        </div>
+<!-- 
+          <div class="row">
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="images/inspector.jpeg" alt="inspector image">
+                    <div class="card-body">
+                      <h5 class="card-title">Inspector</h5>
+                      <p class="card-text">The <strong>Inspector</strong> page allows users to upload a photo or enter the name of a type of food. The model will recognize the photo or the text and return common ingredients in that particular dish. 
+                        It will also give an alert if the ingredients include any of the 8 common food allergies.</p>
+                      <a href="/inspector" class="btn btn-primary">Go to Inspector tab!</a>
+                    </div>
+                  </div>
+            </div>
+          </div> -->
+          <h4><a href="/inspector">Inspector</a></h4>
+          <p>
+            The <strong>Inspector</strong> page allows users to upload a photo or enter the name of a type of food. The model will recognize the photo or the text and return common ingredients in that particular dish. 
+            It will also give an alert if the ingredients include any of the 8 common food allergies.
+          </p>
+          <br>
+          <h4><a href="/news">News</a></h4>
+          <p>
+            On the <strong>News</strong> tab, users will find news related to food allergies, scraped from Twitter.
+          </p>
+          <br>
+          <h4><a href="/remodel">Remodel</a></h4>
+          <p>
+              Currently, our model is only built with 101 different types of dishes. On the <strong>Remodel</strong> page, users will be able to upload images and their labels. This will help train the model to learn new dishes and to improve the accuracy of image recognition. 
+          </p>
+          <div class='tableauPlaceholder' id='viz1547704375043' style='position: relative'><noscript><a href='#'><img alt=' ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Al&#47;Allergens&#47;Sheet2&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Allergens&#47;Sheet2' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Al&#47;Allergens&#47;Sheet2&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1547704375043');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+          <!-- https://public.tableau.com/views/Allergens/Sheet2?:embed=y&:display_count=yes&publish=yes -->
+        
+    </div>
+    </div>  
+  </div>
+
+</body>
+
+</html>
