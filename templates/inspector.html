@@ -31,7 +31,7 @@
         <ul class="nav navbar-nav navbar-right">            
             <li><a href="/inspector">Inspector</a></li>
             <li><a href="/news">News</a></li>
-            <li><a href="/remodel">Remodel</a></li>
+            <li><a href="/results">Results</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
@@ -51,7 +51,7 @@
         <div class="col-md-6">
           <p>
             <span class="chart-text"> 
-              Input either a picture or food name</br></br>
+              <h3>Search By Image</h3></br></br>
             </span>
           </p>
           <!-- <form action="/">
@@ -69,23 +69,27 @@
 
 
         </div>
-        <div id="results" class="col-md-6">
-          <h3>Results</h3>
-            <!-- <div id="heartdisease" class="hidden">
-                <strong>The image is identified as {result}</strong>
-            </div>
-            <div id="noheartdisease" class="hidden">
-                <strong>Could not identify the image</strong>
-            </div> -->
-            <div id="foodresult">
-                <strong>The image is identified as {result}</strong>
-            </div>
-        </div>
+        
       </div> <!-- end of div class row -->
+      <div class="row">
+          <div class="col-md-6">
+            <p>
+              <span class="chart-text"> 
+                <h3>Search by Text </h3>
+                   <br></br>
+              </span> 
+              <form method=post enctype=multipart/form-data action="/predict_text">
+                Food Item Name: <br>
+                <input type = "text" name="food_item_name">
+                <input type = "Submit" name="Submit"><br>
+              </form>
+            </p>
+
     </div> 
   </div> <!-- end of div class container -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+  <script src="{{ url_for('static',filename='js/inspect.js') }}"></script>
 
 </body>
 

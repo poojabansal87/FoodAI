@@ -3,6 +3,7 @@ import numpy as np
 # import imagePrediction
 import scrape_news
 from flask_pymongo import PyMongo
+import pymongo
 # import imageModel
 from pymongo import MongoClient
 import keras
@@ -15,9 +16,13 @@ from keras import backend as K
 import pandas as pd
 import os
 import io
+import re
+import json
 import tensorflow as tf
 from keras.utils.io_utils import HDF5Matrix
 from keras.models import load_model
+from bson import json_util
+from bson.json_util import dumps
 # import cv2
 
 
@@ -30,6 +35,14 @@ model = None
 graph = None
 
 label_names = ['apple_pie', 'baby_back_ribs', 'baklava', 'beef_carpaccio', 'beef_tartare', 'beet_salad', 'beignets', 'bibimbap', 'bread_pudding', 'breakfast_burrito', 'bruschetta', 'caesar_salad', 'cannoli', 'caprese_salad', 'carrot_cake', 'ceviche', 'cheese_plate', 'cheesecake', 'chicken_curry', 'chicken_quesadilla', 'chicken_wings', 'chocolate_cake', 'chocolate_mousse', 'churros', 'clam_chowder', 'club_sandwich', 'crab_cakes', 'creme_brulee', 'croque_madame', 'cup_cakes', 'deviled_eggs', 'donuts', 'dumplings', 'edamame', 'eggs_benedict', 'escargots', 'falafel', 'filet_mignon', 'fish_and_chips', 'foie_gras', 'french_fries', 'french_onion_soup', 'french_toast', 'fried_calamari', 'fried_rice', 'frozen_yogurt', 'garlic_bread', 'gnocchi', 'greek_salad', 'grilled_cheese_sandwich', 'grilled_salmon', 'guacamole', 'gyoza', 'hamburger', 'hot_and_sour_soup', 'hot_dog', 'huevos_rancheros', 'hummus', 'ice_cream', 'lasagna', 'lobster_bisque', 'lobster_roll_sandwich', 'macaroni_and_cheese', 'macarons', 'miso_soup', 'mussels', 'nachos', 'omelette', 'onion_rings', 'oysters', 'pad_thai', 'paella', 'pancakes', 'panna_cotta', 'peking_duck', 'pho', 'pizza', 'pork_chop', 'poutine', 'prime_rib', 'pulled_pork_sandwich', 'ramen', 'ravioli', 'red_velvet_cake', 'risotto', 'samosa', 'sashimi', 'scallops', 'seaweed_salad', 'shrimp_and_grits', 'spaghetti_bolognese', 'spaghetti_carbonara', 'spring_rolls', 'steak', 'strawberry_shortcake', 'sushi', 'tacos', 'takoyaki', 'tiramisu', 'tuna_tartare', 'waffles']
+
+#connecting to mongodb
+conn = 'mongodb://localhost:27017'
+client = pymongo.MongoClient(conn)
+db = client.food_allergy_db
+
+#get collection
+food_allergy_list = db.food_allergy
 
 def load_model():
     global model
@@ -79,9 +92,9 @@ if not conn:
 def home():
     return render_template('index.html')
 
-@app.route('/remodel')
+@app.route('/results')
 def analysis():
-    return render_template('remodel.html')
+    return render_template('results.html')
 
 @app.route('/inspector')
 def predict():
@@ -134,21 +147,64 @@ def predictImage():
             # Get the tensorflow default graph and use it to make predictions
             global graph
             with graph.as_default():
+                data_result = {}
                 preds = model.predict(image, batch_size=10)
                 print(np.argmax(preds))
                 results = label_names[np.argmax(preds)]
                 # print the results
                 print(results)
+                key_match = re.sub('[^0-9a-zA-Z]+', ' ',results)
+                key_match = key_match.capitalize()
 
-
+                #check allergy information from mongodb
+                allergen_results = []
+                allergen_result = food_allergy_list.find({'Food_Item':key_match})
+                for res in allergen_result:
+                    print(res['AllergenClass'])
+                    if res['AllergenClass'] not in allergen_results:
+                        allergen_results.append(res['AllergenClass'])
+                #allergen_results = dumps(allergen_result)
+                #print(allergen_results)
+                data_result = { "Food_Item" : results, "Allergen_Items ": allergen_results}
                 # # Use the model to make a prediction
                 # predicted_digit = model.predict_classes(image_array)[0]
                 # data["prediction"] = str(predicted_digit)
 
                 # # indicate that the request was a success
                 # data["success"] = True
+            #return render_template('results.html', listings = jsonify(data_result))
+            return (json.dumps(data_result))
+    return '''
+    <!doctype html>
+    <title>Upload new File</title>
+    <h1>Upload new File</h1>
+    <a href="/inspector">Inspector</a>
+    <form method=post enctype=multipart/form-data>
+      <p><input type=file name=file>
+         <input type=submit value=Upload>
+    </form>
+    '''
 
-            return jsonify(results)
+# Jsonify the result of text predict
+@app.route('/predict_text', methods=['GET', 'POST'])
+def predictText():
+    data = {"success": False}
+    if request.method == 'POST':
+        #check allergy information from mongodb
+        result_form = request.form['food_item_name']
+        print("response form input box")
+        print(result_form)
+        allergen_results = []
+        
+        allergen_result = food_allergy_list.find({'Food_Item':result_form})
+        for res in allergen_result:
+            print(res['AllergenClass'])
+            if res['AllergenClass'] not in allergen_results:
+                allergen_results.append(res['AllergenClass'])
+                
+            data_result_txt = { "Food_Item" : result_form , "Allergen_Items": allergen_results}
+               
+            return (json.dumps(data_result_txt))
     return '''
     <!doctype html>
     <title>Upload new File</title>

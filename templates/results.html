@@ -38,36 +38,35 @@
   </nav>
 
   <div class="container">
-      <div class="chart-container">
-        <div class="row">
-          <div class="col-md-12">
-            <h1>News</h1>
-            <hr class="line-separator">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="chart-container">
+          <h1>Results</h1>
+          <hr class="line-separator">
+         
+          <div id="results" class="col-md-6">
             
-          </div>
-        
-          <div class="col-md-10">
-              <div id="table-area" class="">
-                  
-                <table id="news-table" class="table table-striped">
-                  <tbody>
-                    {% for news in listings.food_allergy_news%}
-                    <tr>
-                    <td>{{news}}</td>  
-                    </tr>
+              <div id="foodresult">
+                  The food item is {{listings.Food_Item}}
+                <p>It may contain the following allergens
+                  {% for item in listings.Allergen_Items%}
+                    
+                    {{item}}
+                    
                     {% endfor %}
-                  </tbody>
-                </table>
+                </p>
+
               </div>
-            </div>
-          </div>  
-                
-    
+          </div>
+        </div>
+    </div>
     </div>  
   </div>
+
+  <!-- <script src="https://cdn.plot.ly/plotly-1.31.2.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="static/js/news.js"></script>
+  <script src="../static/js/remodel.js"></script>
 
 </body>
 

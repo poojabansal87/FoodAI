@@ -3,8 +3,15 @@ function imagePrediction() {
     var fileObj = $("#new_file")
     console.log(fileObj);
     
-    d3.json('/predict').then(ageData => {
-        console.log(ageData);
+    d3.json('/predict').then(foodData => {
+        console.log(foodData);
+
+        //add result to panel
+        var PANEL = d3.select("#results");
+        PANEL.html("")
+        Object.entries(foodData).forEach(([key, value]) => {
+            PANEL.append("h6").text(`${key}: ${value}`);
+        });
         // var trace1 = {
         //     y: ageData.age_hd,
         //     type: 'box',
